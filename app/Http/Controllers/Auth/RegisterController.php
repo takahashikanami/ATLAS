@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\Users\User;
+use App\Models\Users\Subjects;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use DB;
-
-use App\Models\Users\Subjects;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -59,7 +59,7 @@ class RegisterController extends Controller
 
     public function registerPost(Request $request)
     {
-        DB::beginTransaction();
+        // DB::beginTransaction();
         try{
             $old_year = $request->old_year;
             $old_month = $request->old_month;
@@ -79,12 +79,15 @@ class RegisterController extends Controller
                 'role' => $request->role,
                 'password' => bcrypt($request->password)
             ]);
+
             $user = User::findOrFail($user_get->id);
-            $user->subjects()->attach($subjects);
-            DB::commit();
+            if($user_get->role == 4 ){
+                $user->subjects()->attach($subjects);
+            }
+            // DB::commit();
             return view('auth.login.login');
         }catch(\Exception $e){
-            DB::rollback();
+            // DB::rollback();
             return redirect()->route('loginView');
         }
     }
