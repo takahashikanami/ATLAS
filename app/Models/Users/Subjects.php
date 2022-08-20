@@ -14,6 +14,7 @@ class Subjects extends Model
     protected $fillable = [
         'subject'
     ];
+    // Subject→User（リレーション）
     public function users(){
        return $this->belongsToMany('App\Models\Users\User','subject_users','subject_id','user_id');
 }

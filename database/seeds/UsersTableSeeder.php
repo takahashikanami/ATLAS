@@ -56,6 +56,17 @@ class UsersTableSeeder extends Seeder
                 'role'   =>'4',
                 'birth_day'   =>'19961225',
                 'password'   => bcrypt('password'),
+            ],
+            [
+                'over_name'    => '丸茂',
+                'under_name'   => '傭兵',
+                'over_name_kana'   => 'マルモ',
+                'under_name_kana'   => 'ヨウヘイ',
+                'mail_address'   => 'marumo@gmail.com',
+                'sex'   =>'1',
+                'role'   =>'4',
+                'birth_day'   =>'19961225',
+                'password'   => bcrypt('password'),
             ]
 
           ]);

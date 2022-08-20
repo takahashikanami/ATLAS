@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserCreateRequest;
 use DB;
 use Auth;
 
@@ -57,9 +58,9 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(Request $request)
+    public function registerPost(UserCreateRequest $request)
     {
-        // DB::beginTransaction();
+        DB::beginTransaction();
         try{
             $old_year = $request->old_year;
             $old_month = $request->old_month;
@@ -81,13 +82,12 @@ class RegisterController extends Controller
             ]);
 
             $user = User::findOrFail($user_get->id);
-            if($user_get->role == 4 ){
-                $user->subjects()->attach($subjects);
-            }
-            // DB::commit();
+            $user->subjects()->attach($subjects);
+
+            DB::commit();
             return view('auth.login.login');
         }catch(\Exception $e){
-            // DB::rollback();
+            DB::rollback();
             return redirect()->route('loginView');
         }
     }

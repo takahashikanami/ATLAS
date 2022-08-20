@@ -43,7 +43,13 @@
       </div>
       <div>
         @if($user->role == 4)
-        <span>選択科目 :</span>
+        <span>選択科目 :
+        <!-- ユーザーレコードのカタマリを要素にバラして取得 -->
+        @foreach($user->subjects as $subject)
+        <!-- バラした要素の各プロパティがしゅとくできるようになったので、DB上でいうとsubject列の値を取得 -->
+          {{ $subject->subject }}
+        @endforeach
+        </span>
         @endif
       </div>
     </div>

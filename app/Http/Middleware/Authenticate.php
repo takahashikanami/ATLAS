@@ -18,8 +18,8 @@ class Authenticate extends Middleware
             return route('login');
         }
         // 改修課題：タイムアウト時の遷移先をログイン画面へ（下記に書き換える）
-        // if (! $request->expectsJson()) {
-        //     return route('loginView');
-        // }
+        if (! $request->expectsJson()) {
+            return route('loginView');
+        }
     }
 }

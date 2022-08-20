@@ -23,12 +23,22 @@ class Post extends Model
         return $this->hasMany('App\Models\Posts\PostComment');
     }
 
+     public function likes()
+    {
+        return $this->hasMany('App\Models\Posts\Like','like_post_id');
+    }
+
     public function subCategories(){
         // リレーションの定義
     }
 
     // コメント数
-    public function commentCounts($post_id){
-        return Post::with('postComments')->find($post_id)->postComments();
+    // public function commentCounts($post_id){
+    //     return Post::with('postComments')->find($post_id)->postComments();
+    // }
+    public function commentCounts()
+    {
+        return $this->postComments()->count();
     }
+
 }
