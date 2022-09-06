@@ -3,6 +3,7 @@
 namespace App\Http\Requests\BulletinBoard;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Categories\MainCategory;
 
 class PostFormRequest extends FormRequest
 {

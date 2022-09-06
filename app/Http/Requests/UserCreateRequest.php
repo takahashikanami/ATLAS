@@ -40,7 +40,6 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //新規登録バリデーション
             'over_name' => 'required|string|max:10',
             'under_name' => 'required|string|max:10',
             'over_name_kana' => 'required|string|max:30|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
@@ -48,40 +47,37 @@ class UserCreateRequest extends FormRequest
             'mail_address' => 'required|string|email|max:100|unique:users',
             'sex' => 'required|in: 1,2,3',
             'role' =>'required|in: 1,2,3,4',
-            'datetime' => 'date|before:today|after:19991231',// 正しい日付かどうかをチェック
-            'old_year' => 'required_with:old_month,old_day',
-            'old_month' => 'required_with:old_year,old_day',
-            'old_day' => 'required_with:old_year,old_month',
-            'password' => 'required|string|min:8|max:30|confirmed',
-            'password_confirmation'=> 'required|string|min:8|max:30',
-
+            'old_year' => 'required',
+            'old_month' => 'required',
+            'old_day' => 'required',
+            'password' => 'required|min:8|max:30|confirmed',
         ];
     }
-    public function messages(){
+    public function messages()
+    {
         return [
-            'over_name.required' => '入力必須です。',
-            'over_name.max' => '10文字以下で入力してください。',
-            'under_name.required' => '入力必須です。',
-            'over_name.max' => '10文字以下で入力してください。',
-            'over_name_kana.required' => '入力必須です。',
-            'over_name_kana.max' => '30文字以下で入力してください。',
-            'over_name_kana.regex' => 'カナを入力してください。',
-            'under_name_kana.required' => '入力必須です。',
-            'under_name_kana.max' => '30文字以下で入力してください。',
-            'under_name_kana.regex' => 'カナを入力してください。',
-            'mail_address.required' => '入力必須です。',
-            'sex.required' => '入力必須です。',
-            'sex.in' => '選択してください。',
-            'role.required' =>'入力必須です。',
-            'role.in' =>'選択してください。',
-            'datetime.required' =>'入力必須です。',
-            'datetime.before' =>'正しい日付を入力してください。',
-            'datetime.after' =>'正しい日付を入力してください。',
-            'password.required' => '入力必須です。',
+            'over_name.required' => '必須項目です。',
+            'over_name.string' => '使用できない文字が使われています。',
+            'over_name.max' => '最大10文字です。',
+            'under_name.required' => '必須項目です。',
+            'under_name.string' => '使用できない文字が使われています。',
+            'under_name.max' => '最大10文字です。',
+            'over_name_kana.required' => '必須項目です。',
+            'over_name_kana.string' => '使用できない文字が使われています。',
+            'over_name_kana.max' => '最大10文字です。',
+            'over_name_kana.katakana' => 'カタカナで入力してください。',
+            'under_name_kana.required' => '必須項目です。',
+            'under_name_kana.string' => '使用できない文字が使われています。',
+            'under_name_kana.katakana' => 'カタカナで入力してください。',
+            'under_name_kana.max' => '最大10文字です。',
+            'mail_address.required' => '必須項目です。',
+            'mail_address.email' => 'メール形式で入力してください。',
+            'mail_address.unique' => 'このメールアドレスは使えません。',
+            'mail_address.max' => '最大100文字です。',
+            'password.required' => '必須項目です。',
             'password.min' => '8文字以上で入力してください。',
-            'password.max' => '10文字以下で入力してください。',
-            'password.confirmed' => '入力必須です。',
-            'password_confirmation.required' => '入力必須です。',
+            'password.max' => '最大30文字です。',
+            'password.confirmed' => 'パスワードが一致しません。',
         ];
     }
 }
