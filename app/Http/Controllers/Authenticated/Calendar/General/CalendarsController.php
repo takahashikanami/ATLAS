@@ -35,4 +35,26 @@ class CalendarsController extends Controller
         }
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
+    public function delete(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $date = $request->date;
+            $part = $request->part;
+
+            $reserve_setting = ReserveSettings::where('setting_reserve', $date)
+                ->where('setting_part', $part)
+                ->first();
+
+            $reserve_setting->users()->detach(Auth::id());
+            $reserve_setting->increment('limit_users');
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
+        return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
+    }
+
 }
