@@ -5,7 +5,7 @@ namespace App\Http\Requests\BulletinBoard;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Categories\MainCategory;
 
-class PostFormRequest extends FormRequest
+class PostEditFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +25,17 @@ class PostFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'post_title' => 'min:4|max:50',
-            'post_body' => 'min:10|max:500',
+            'post_title' => 'required|string|max:100',
+            'post_body' => 'required|string|max:5000',
         ];
     }
 
     public function messages(){
         return [
-            'post_title.min' => 'タイトルは400文字以上入力してください。',
-            'post_title.max' => 'タイトルは50文字以内で入力してください。',
-            'post_body.min' => '内容は10文字以上入力してください。',
-            'post_body.max' => '最大文字数は500文字です。',
+            'post_title.required' => '必須項目です。',
+            'post_title.max' => 'タイトルは100文字以内で入力してください。',
+            'post_body.required' => '必須項目です。',
+            'post_body.max' => '最大文字数は5000文字です。',
         ];
     }
 

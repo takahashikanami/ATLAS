@@ -79,6 +79,9 @@
           <label style="font-size:13px">その他</label>
         </div>
         <div class="mt-3">
+          @if($errors->first('old_year'))
+            <span class="error_message">{{ $errors->first('old_year') }}</span>
+          @endif
           <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
           <select class="old_year" name="old_year">
             <option value="none">-----</option>
@@ -194,10 +197,10 @@
         <div class="mt-3">
           @if($errors->first('password_confirmation'))
             <span class="error_message">{{ $errors->first('password_confirmation') }}</span>
-        @endif
+          @endif
           <label class="d-block m-0" style="font-size:13px">確認用パスワード</label>
           <div class="border-bottom border-primary">
-            <input type="password" class="border-0 w-100 password_confirmation" name="password">
+            <input type="password" class="border-0 w-100 password_confirmation" name="password_confirmation">
           </div>
         </div>
         <div class="mt-5 text-right">
