@@ -56,7 +56,9 @@ class PostsController extends Controller
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
-        return redirect()->route('post.show');
+
+
+            return redirect()->route('post.show');
     }
 
     public function postEdit(PostEditFormRequest $request){
