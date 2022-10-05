@@ -50,6 +50,7 @@ class UserCreateRequest extends FormRequest
             'old_year' => 'required',
             'old_month' => 'required',
             'old_day' => 'required',
+            'datetime' => 'date|before:today|after:19991231',
             'password' => 'required|min:8|max:30|confirmed',
         ];
     }
@@ -74,6 +75,9 @@ class UserCreateRequest extends FormRequest
             'mail_address.email' => 'メール形式で入力してください。',
             'mail_address.unique' => 'このメールアドレスは使えません。',
             'mail_address.max' => '最大100文字です。',
+            'datetime.date' => '正しい日付を入力してください。',
+            'datetime.before' => '2000年1月1日から今日までの日付を入力してください。',
+            'datetime.after' => '2000年1月1日から今日までの日付を入力してください。',
             'password.required' => '必須項目です。',
             'password.min' => '8文字以上で入力してください。',
             'password.max' => '最大30文字です。',
