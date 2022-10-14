@@ -3,9 +3,9 @@
 namespace App\Http\Requests\BulletinBoard;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Categories\SubCategory;
+use App\Models\Categories\MainCategory;
 
-class CategoryFormRequest extends FormRequest
+class MainCategoryFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +25,14 @@ class CategoryFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'sub_category' => 'required|max:100|string|unique:sub_categories',
+            'main_category' => 'required|unique:main_categories',
         ];
     }
-
     public function messages()
     {
         return [
-            'sub_category.required' => '必須項目です。',
-            'sub_category.max' => '最大100文字です。',
-            'sub_category.string' => '文字で入力してください。',
-            'sub_category.unique' => 'このサブカテゴリはすでに作成済みです。',
+            'main_category.required' => '必須項目です。',
+            'main_category.unique' => 'このメインカテゴリは既に作成済みです。',
         ];
     }
 }
