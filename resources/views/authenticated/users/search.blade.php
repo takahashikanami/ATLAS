@@ -1,7 +1,6 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<p>ユーザー検索</p>
 <div class="search_content w-100 border d-flex">
   <div class="reserve_users_area">
     @foreach($users as $user)
@@ -57,8 +56,9 @@
   </div>
   <div class="search_area w-25 border">
     <div class="">
-      <div>
-        <input type="text" class="free_word" name="keyword" placeholder="キーワードを検索" form="userSearchRequest">
+      <h3>検索</h3>
+      <div class="free_word">
+        <input type="text" class="free_word" name="keyword" placeholder="キーワードを検索" form="userSearchRequest" style>
       </div>
       <div>
         <lavel>カテゴリ</lavel>
@@ -106,8 +106,8 @@
       <div>
         <input type="reset" value="リセット" form="userSearchRequest">
       </div>
-      <div>
-        <input type="submit" name="search_btn" value="検索" form="userSearchRequest">
+      <div class="search_btn">
+        <input type="submit" name="search_btn" value="検索する" form="userSearchRequest">
       </div>
     </div>
     <form action="{{ route('user.show') }}" method="get" id="userSearchRequest"></form>
