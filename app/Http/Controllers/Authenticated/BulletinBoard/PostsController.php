@@ -18,32 +18,41 @@ use Auth;
 
 class PostsController extends Controller
 {
-    public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get();
+    public function show(Request $request)
+    {
+        $posts = Post::with('user', 'postComments', 'subCategories')->get();
         $categories = MainCategory::get();
+        $sub_category = new SubCategory;
         $like = new Like;
         $post_comment = new Post;
-        if(!empty($request->keyword)){
-            $posts = Post::with('user', 'postComments')
-            ->where('post_title', 'like', '%'.$request->keyword.'%')
-            ->orWhere('post', 'like', '%'.$request->keyword.'%')->get();
-        }else if($request->category_word){
-            $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
-        }else if($request->like_posts){
+        if (!empty($request->keyword)) {
+            $posts = Post::with('user', 'postComments', 'subCategories')
+                ->where('post_title', 'like', '%' . $request->keyword . '%')
+                ->orWhere('post', 'like', '%' . $request->keyword . '%')->get();
+        } else if ($request->category_word) {
+            $category = $request->category_word;
+            $posts = Post::with('user', 'postComments', 'subCategories')
+                ->whereHas('subCategories', function ($query) use ($category) {
+                    $query->where('sub_category', $category);
+                })
+                ->get();
+        } else if ($request->like_posts) {
             $likes = Auth::user()->likePostId()->get('like_post_id');
-            $posts = Post::with('user', 'postComments')
-            ->whereIn('id', $likes)->get();
-        }else if($request->my_posts){
-            $posts = Post::with('user', 'postComments')
-            ->where('user_id', Auth::id())->get();
+            $posts = Post::with('user', 'postComments', 'subCategories')
+                ->whereIn('id', $likes)->get();
+        } else if ($request->my_posts) {
+            $posts = Post::with('user', 'postComments', 'subCategories')
+                ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'sub_category', 'like', 'post_comment'));
     }
 
     public function postDetail($post_id){
-        $post = Post::with('user', 'postComments')->findOrFail($post_id);
-        return view('authenticated.bulletinboard.post_detail', compact('post'));
+        $post = Post::with('user', 'postComments','subCategories')->findOrFail($post_id);
+        $category = SubCategory::where('id', $post_id)->first();
+
+        return view('authenticated.bulletinboard.post_detail', compact('post', 'category'));
     }
 
     public function postInput(){
@@ -58,6 +67,8 @@ class PostsController extends Controller
             'post' => $request->post_body
         ]);
 
+        $post->subCategories()
+            ->attach($request->post_category_id);
 
             return redirect()->route('post.show');
     }

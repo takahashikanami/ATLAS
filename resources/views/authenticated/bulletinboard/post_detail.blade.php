@@ -16,7 +16,8 @@
           </div>
         </div>
 
-        <div class="contributor d-flex">
+        <div class="contributor">
+          <span class="category_btn">{{ $category->sub_category }}</span>
           <p>
             <span>{{ $post->user->over_name }}</span>
             <span>{{ $post->user->under_name }}</span>

@@ -60,14 +60,14 @@
       <div class="free_word">
         <input type="text" class="free_word" name="keyword" placeholder="キーワードを検索" form="userSearchRequest" style>
       </div>
-      <div>
+      <div class="category">
         <lavel>カテゴリ</lavel>
         <select form="userSearchRequest" name="category">
           <option value="name">名前</option>
           <option value="id">社員ID</option>
         </select>
       </div>
-      <div>
+      <div class="updown">
         <label>並び替え</label>
         <select name="updown" form="userSearchRequest">
           <option value="ASC">昇順</option>

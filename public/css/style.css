@@ -112,6 +112,7 @@ li{
 }
 .post_bottom_area{
   justify-content: space-between;
+  float: right;
 }
 .like_btn,
 .un_like_btn{
@@ -244,4 +245,15 @@ li{
 }
 .subject_inner{
   display:none;
+}
+.category {
+  display:flex;
+  flex-flow: column;
+  width: 30%;
+}
+
+.updown{
+  display:flex;
+  flex-flow: column;
+  width: 30%;
 }
