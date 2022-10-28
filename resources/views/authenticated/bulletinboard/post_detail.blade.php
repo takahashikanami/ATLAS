@@ -1,6 +1,5 @@
 @extends('layouts.sidebar')
 @section('content')
-
 <div class="vh-100 d-flex">
   <div class="w-50 mt-5">
     <div class="m-3 detail_container">
@@ -8,22 +7,20 @@
         <div class="detail_inner_head">
           <div>
           </div>
-          <div class="editbtn">
-             @if($post->user->id == Auth::id())
+          <div>
             <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('この投稿を削除します。よろしいでしょうか？')">削除</a>
-            @endif
+            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいですか？')">削除</a>
           </div>
         </div>
 
-        <div class="contributor">
-          <span class="category_btn">{{ $category->sub_category }}</span>
+        <div class="contributor d-flex">
           <p>
+
             <span>{{ $post->user->over_name }}</span>
             <span>{{ $post->user->under_name }}</span>
             さん
           </p>
-          <span class="ml-5">{{ $post->created_at }}</span>
+
         </div>
         <div class="detsail_post_title">{{ $post->post_title }}</div>
         <div class="mt-3 detsail_post">{{ $post->post }}</div>
@@ -62,21 +59,15 @@
     <form action="{{ route('post.edit') }}" method="post">
       <div class="w-100">
         <div class="modal-inner-title w-50 m-auto">
-　　　　@if($errors->first('post_title'))
-      <span class="error_message">{{ $errors->first('post_title') }}</span>
-      @endif
           <input type="text" name="post_title" placeholder="タイトル" class="w-100">
         </div>
         <div class="modal-inner-body w-50 m-auto pt-3 pb-3">
-      @if($errors->first('post_body'))
-      <span class="error_message">{{ $errors->first('post_body') }}</span>
-      @endif
           <textarea placeholder="投稿内容" name="post_body" class="w-100"></textarea>
         </div>
         <div class="w-50 m-auto edit-modal-btn d-flex">
           <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
           <input type="hidden" class="edit-modal-hidden" name="post_id" value="">
-          <input type="submit" class="btn btn-primary d-block" value="編集">
+          <input type="submit" class="btn btn-primary d-block" value="編集" onclick="return confirm('編集してよろしいですか？')">
         </div>
       </div>
       {{ csrf_field() }}
