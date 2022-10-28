@@ -52,6 +52,8 @@ class PostsController extends Controller
         $post = Post::with('user', 'postComments','subCategories')->findOrFail($post_id);
         $category = SubCategory::where('id', $post_id)->first();
 
+        // dd($category);
+
         return view('authenticated.bulletinboard.post_detail', compact('post', 'category'));
     }
 
