@@ -25,6 +25,7 @@ class PostsController extends Controller
         $sub_category = new SubCategory;
         $like = new Like;
         $post_comment = new Post;
+        $user_id = Auth::id();
         if (!empty($request->keyword)) {
             $posts = Post::with('user', 'postComments', 'subCategories')
                 ->where('post_title', 'like', '%' . $request->keyword . '%')
