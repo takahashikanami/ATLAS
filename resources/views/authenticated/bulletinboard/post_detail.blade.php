@@ -14,9 +14,8 @@
           </div>
           @endif
         </div>
-
         <div class="contributor">
-          <span class="category_btn">{{ $category->sub_category }}</span>
+          <span class="category_btn">{{ $post->subCategories->first()->sub_category }}</span>
           <p>
             <span>{{ $post->user->over_name }}</span>
             <span>{{ $post->user->under_name }}</span>
